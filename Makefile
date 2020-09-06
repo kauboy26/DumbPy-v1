@@ -1,5 +1,5 @@
 CXXFLAGS= -std=c++14 -O2 -W -Wall -Wextra -pedantic
-OBJFILES= dumbpy.m.o tokenizer.o
+OBJFILES= dumbpy.m.o tokenizer.o parser.o
 
 dumbpy: $(OBJFILES)
 	$(CXX) $(CXXFLAGS) $^ -o $@
@@ -8,6 +8,6 @@ dumbpy: $(OBJFILES)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJFILES) lab1
+	rm -f $(OBJFILES) dumbpy
 
 .PHONY: clean

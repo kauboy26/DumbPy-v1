@@ -7,9 +7,9 @@
 
 namespace tokenizer {
 
-enum TokenType {PLUS, MULT, LPAREN, RPAREN, ASSEQ, NUM, IDENT, EOL, ERR};
+enum TokenType {PLUS, MINUS, MULT, DIV, LPAREN, RPAREN, ASSEQ, NUM, IDENT, EOL, ERR};
 namespace {
-std::string tokenPrint[] = {"Plus", "Mult", "Lparen", "Rparen", "AssEq", "Num", "Ident", "EOL", "Err"};
+std::string tokenPrint[] = {"Plus", "Minus", "Mult", "Div", "Lparen", "Rparen", "AssEq", "Num", "Ident", "EOL", "Err"};
 } // namespace
 
 class Token {
@@ -25,8 +25,17 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const Token& t) {
 		os << '(' << tokenPrint[t._type] << ", " << t._value << ')';
 		return os;
+	}
+
+	bool is(TokenType t) const {
+		return _type == t;
 	} 
 };
+
+inline std::ostream& operator<<(std::ostream& os, TokenType t) {
+	os << tokenPrint[t];
+	return os;
+}
 
 /*
  * Returns an integer that points to the point in the string where

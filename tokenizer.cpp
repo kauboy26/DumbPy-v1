@@ -17,8 +17,16 @@ bool isPlus(char c) {
 	return c == '+';
 }
 
+bool isMinus(char c) {
+	return c == '-';
+}
+
 bool isMult(char c) {
 	return c == '*';
+}
+
+bool isDiv(char c) {
+	return c == '/';
 }
 
 bool isLparen(char c) {
@@ -38,13 +46,8 @@ bool isEqual(char c) {
 }
 } // namespace
 
-
-
 std::pair<int, Token> nextToken(int startFrom, const std::string& toTokenize) {
 	if (startFrom < 0 || startFrom > int(toTokenize.size())) {
-		std::cout << "Error! nextToken startFrom invalid, line: '"
-				<< toTokenize << "', startFrom: "
-				<< startFrom << '\n';
 		return std::make_pair(-1, Token(ERR, ""));
 	}
 
@@ -79,9 +82,15 @@ std::pair<int, Token> nextToken(int startFrom, const std::string& toTokenize) {
 	} else if (isPlus(toTokenize[i])) {
 		i++;
 		return std::make_pair(i, Token(PLUS, ""));
+	} else if (isMinus(toTokenize[i])) {
+		i++;
+		return std::make_pair(i, Token(MINUS, ""));
 	} else if (isMult(toTokenize[i])) {
 		i++;
 		return std::make_pair(i, Token(MULT, ""));
+	} else if (isDiv(toTokenize[i])) {
+		i++;
+		return std::make_pair(i, Token(DIV, ""));
 	} else if (isLparen(toTokenize[i])) {
 		i++;
 		return std::make_pair(i, Token(LPAREN, ""));

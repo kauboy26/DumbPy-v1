@@ -2,36 +2,43 @@
 #include <string>
 #include <sstream>
 #include <utility>
+#include <stdexcept>
 
 #include "tokenizer.hpp"
+#include "parser.hpp"
+#include "instruction.hpp"
 
-using namespace tokenizer;
+static int currSpot = 0;
+static std::string line;
+void resetSpot() {
+	currSpot = 0;
+}
+
+std::pair<int, tokenizer::Token> nextToken() {
+	auto p = tokenizer::nextToken(currSpot, line);
+	currSpot = p.first;
+	return p;
+}
 
 int main() {
-	std::string line;
-	std::cout << "DumbPy 0.1, on whatever OS you have.\n";
+	std::cout << "DumbPy 0.1, on whatever OS you have. Type 'exit' to exit.\n";
 
 	while (1) {
 		std::cout << ">" << ">> ";
 		std::getline(std::cin, line);
+		if (line == "exit")
+			break;
 
-		int i = 0;
-		for (auto p = nextToken(i, line);
-				p.second._type != ERR && p.second._type != EOL;
-				p = nextToken(i, line)) {
+		parser::Parser parser = parser::Parser(nextToken);
 
-			Token& t = p.second;
-			std::cout << i << ": " << t << '\n';
-
-			i = p.first;
+		try {
+			parser.parse();
+		} catch (const std::exception& e) {
+			std::cout << "There was an error." << '\n';
 		}
-
-		if (i != int(line.size()))
-			std::cout << "BIG ERROR occurred : " << i << '\n';
-
-		break;
+		
+		resetSpot();
 	}
 
 	return 0;
 }
-
