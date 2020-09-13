@@ -7,9 +7,11 @@
 
 namespace tokenizer {
 
-enum TokenType {PLUS, MINUS, MULT, DIV, LPAREN, RPAREN, ASSEQ, NUM, IDENT, EOL, ERR};
+enum TokenType {PLUS, MINUS, MULT, DIV, ASSEQ, PRINT, LPAREN, RPAREN, NUM, IDENT, EOL, ERR};
+
 namespace {
-std::string tokenPrint[] = {"Plus", "Minus", "Mult", "Div", "Lparen", "Rparen", "AssEq", "Num", "Ident", "EOL", "Err"};
+std::string tokenPrint[] = {"Plus", "Minus", "Mult", "Div", "AssEq", "Print",
+	"Lparen", "Rparen", "Num", "Ident", "EOL", "Err"};
 } // namespace
 
 class Token {
