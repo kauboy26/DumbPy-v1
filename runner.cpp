@@ -43,6 +43,7 @@ void Runner::run(const std::vector<Instruction>& instrs, std::ostream& os) {
 		int val1 = fetchValue(_variables, i.operands[1], os);
 		int val2 = fetchValue(_variables, i.operands[2], os);
 		int result = 0;
+		
 		switch (i.op) {
 			case PLUS:
 				result = val1 + val2;

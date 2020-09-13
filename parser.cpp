@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <utility>
+#include <stdexcept>
 
 #include "instruction.hpp"
 #include "tokenizer.hpp"
