@@ -3,6 +3,7 @@
 #include <utility>
 #include <string>
 #include <vector>
+#include <ostream>
 
 #include "tokenizer.hpp"
 

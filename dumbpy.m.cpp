@@ -8,6 +8,7 @@
 #include "tokenizer.hpp"
 #include "parser.hpp"
 #include "instruction.hpp"
+#include "runner.hpp"
 
 using namespace instruction;
 
@@ -44,6 +45,7 @@ std::pair<int, tokenizer::Token> peekToken(int i) {
 
 int main() {
 	std::cout << "DumbPy 0.1, on whatever OS you have. Type 'exit' to exit.\n";
+	auto runner = runner::Runner();
 
 	while (1) {
 		std::cout << ">" << ">> ";
@@ -51,13 +53,11 @@ int main() {
 		if (line == "exit")
 			break;
 
-		parser::Parser parser = parser::Parser(nextToken, peekToken);
+		auto parser = parser::Parser(nextToken, peekToken);
 
 		try {
 			auto instrs = parser.parse();
-			for (auto& i: instrs) {
-				std::cout << i << '\n';
-			}
+			runner.run(instrs, std::cout);
 		} catch (const std::exception& e) {
 			std::cout << "There was an error." << '\n';
 		}
